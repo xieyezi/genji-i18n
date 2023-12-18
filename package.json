@@ -1,0 +1,93 @@
+{
+  "name": "@xieyezi/genji-i18n",
+  "version": "0.0.1",
+  "description": "translate Markdown into specified multiple languages automatically by openai.",
+  "keywords": [
+    "ai",
+    "i18n",
+    "openai",
+    "gpt",
+    "languages",
+    "xieyezi"
+  ],
+  "homepage": "https://github.com/xieyezi/genji-i18n",
+  "bugs": {
+    "url": "https://github.com/xieyezi/genji-i18n/issues/new"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xieyezi/genji-i18n.git"
+  },
+  "license": "MIT",
+  "author": "xieyezi",
+  "bin": {
+    "genji-i18n": "dist/cli.cjs"
+  },
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./dist/index.d.ts"
+      ]
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "start": "node ./dist/cli.cjs translate",
+    "build:unbuild": "rimraf dist && unbuild",
+    "build:pkgroll": "pkgroll --minify -p tsconfig.prod.json --env.NODE_ENV=production",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "cac": "^6.7.14",
+    "chalk": "^5",
+    "consola": "^3",
+    "dotenv": "^16",
+    "fast-deep-equal": "^3",
+    "glob": "^10",
+    "gpt-tokenizer": "^2",
+    "json-stable-stringify": "^1",
+    "just-diff": "^6",
+    "langchain": "latest",
+    "lodash-es": "^4",
+    "minimist": "^1.2.8",
+    "p-map": "^7",
+    "pkgroll": "^2",
+    "remark-frontmatter": "^4",
+    "remark-gfm": "^3",
+    "remark-parse": "^10",
+    "remark-stringify": "^10",
+    "unbuild": "^2.0.0",
+    "unconfig": "^0.3.11",
+    "unified": "^11",
+    "unist-util-visit": "^5"
+  },
+  "devDependencies": {
+    "@types/json-stable-stringify": "^1",
+    "@types/lodash-es": "^4.17.12",
+    "@types/minimist": "^1.2.5",
+    "@types/node": "^20.10.5",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}
