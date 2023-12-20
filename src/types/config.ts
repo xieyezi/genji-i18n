@@ -1,4 +1,4 @@
-import { LanguageModel } from "./models";
+import { LanguageModel, MarkdownMode } from "../utils/constant";
 
 export interface GenjiI18nConfig {
   /**
@@ -28,7 +28,7 @@ export interface GenjiI18nConfig {
   /**
    * @description The language that will use as translation ref
    */
-  entryLocale?: string;
+  entryLocale: string;
   /**
    * @description Markdown Suffix
    */
@@ -58,6 +58,15 @@ export interface GenjiI18nConfig {
       getDefaultSuffix: (locale: string) => string;
     }
   ) => string;
+}
+
+export interface MarkdownQuery {
+  filename: string;
+  from: string;
+  to: string;
+  md: string;
+  mode: MarkdownMode;
+  onProgress?: (rest: any) => void;
 }
 
 export interface OptionType {

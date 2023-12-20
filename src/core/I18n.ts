@@ -26,6 +26,7 @@ export interface onProgressProps {
   step: number;
 }
 export interface I18nTranslateOptions {
+  filename?: string;
   entry: LocaleObj;
   from?: string;
   onProgress?: (props: onProgressProps) => void;
@@ -33,7 +34,8 @@ export interface I18nTranslateOptions {
   to: string;
 }
 
-export interface I18nMarkdownTranslateOptions extends Pick<I18nTranslateOptions, "from" | "to" | "onProgress"> {
+export interface I18nMarkdownTranslateOptions
+  extends Pick<I18nTranslateOptions, "filename" | "from" | "to" | "onProgress"> {
   md: string;
   mode: MarkdownMode;
 }
@@ -45,6 +47,20 @@ export interface I18nWriteOptions extends I18nTranslateOptions {
 export interface I18nMarkdownWriteOptions extends I18nMarkdownTranslateOptions {
   filename: string;
 }
+
+export type TranslateResult =
+  | {
+      result: LocaleObj;
+      tokenUsage: number;
+    }
+  | undefined;
+
+export type TranslateMarkdownResult =
+  | {
+      result: string;
+      tokenUsage: number;
+    }
+  | undefined;
 
 export class I18n {
   private config: GenjiI18nConfig;
@@ -58,13 +74,7 @@ export class I18n {
     this.translateMarkdownService = new TranslateMarkdown(config);
   }
 
-  async translateMarkdown(options: I18nMarkdownTranslateOptions): Promise<
-    | {
-        result: string;
-        tokenUsage: number;
-      }
-    | undefined
-  > {
+  async translateMarkdown(options: I18nMarkdownTranslateOptions): Promise<TranslateMarkdownResult> {
     return options.mode === MarkdownMode.STRING
       ? this.translateMarkdownByString(options)
       : this.translateMarkdownByMdast(options);
@@ -75,12 +85,13 @@ export class I18n {
     to,
     onProgress,
     from
-  }: I18nMarkdownTranslateOptions): Promise<{ result: string; tokenUsage: number } | undefined> {
+  }: I18nMarkdownTranslateOptions): Promise<TranslateMarkdownResult> {
     const prompt = await this.translateLocaleService.promptString.formatMessages({
       from,
       text: "",
       to
     });
+
     const splitString = await this.translateMarkdownService.genSplitMarkdown(md, JSON.stringify(prompt));
 
     this.maxStep = splitString.length;
@@ -135,13 +146,7 @@ export class I18n {
     };
   }
 
-  async translateMarkdownByMdast({ md, ...rest }: I18nMarkdownTranslateOptions): Promise<
-    | {
-        result: string;
-        tokenUsage: number;
-      }
-    | undefined
-  > {
+  async translateMarkdownByMdast({ md, ...rest }: I18nMarkdownTranslateOptions): Promise<TranslateMarkdownResult> {
     const target = await this.translateMarkdownService.genTarget(md);
 
     const translatedTarget = await this.translate({
@@ -162,13 +167,7 @@ export class I18n {
     };
   }
 
-  async translate({ entry, target, to, onProgress, from }: I18nTranslateOptions): Promise<
-    | {
-        result: LocaleObj;
-        tokenUsage: number;
-      }
-    | undefined
-  > {
+  async translate({ entry, target, to, onProgress, from }: I18nTranslateOptions): Promise<TranslateResult> {
     const prompt = await this.translateLocaleService.promptJson.formatMessages({
       from,
       json: {},

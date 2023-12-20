@@ -1,12 +1,10 @@
 import { isPlainObject, reduce } from "lodash-es";
+import { diff } from "./diffJson";
+import { KEY_EXTRA_TOKENS, OBJECT_EXTRA_TOKENS, LanguageModel, ModelTokens } from "./constant";
+import { calcEncodedKeyToken, calcJsonToken, calcPrimitiveValueToken, calcToken } from "./calcToken";
 
 import type { LocaleObj } from "../types";
 import type { GenjiI18nConfig } from "../types/config";
-import { LanguageModel, ModelTokens } from "../types/models";
-
-import { diff } from "./diffJson";
-import { KEY_EXTRA_TOKENS, OBJECT_EXTRA_TOKENS } from "./constant";
-import { calcEncodedKeyToken, calcJsonToken, calcPrimitiveValueToken, calcToken } from "./calcToken";
 
 const splitJSONtoSmallChunks = (object: LocaleObj, splitToken: number) =>
   reduce(
