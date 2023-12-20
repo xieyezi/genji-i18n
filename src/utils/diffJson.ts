@@ -1,12 +1,12 @@
-import { diff as justDiff } from 'just-diff';
-import { cloneDeep, set, unset } from 'lodash-es';
+import { diff as justDiff } from "just-diff";
+import { cloneDeep, set, unset } from "lodash-es";
 
-import { LocaleObj } from '@/types';
+import type { LocaleObj } from "../types";
 
 export const diff = (entry: LocaleObj, target: LocaleObj) => {
   const diffResult = justDiff(target, entry);
-  const add = diffResult.filter((item) => item.op === 'add');
-  const remove = diffResult.filter((item) => item.op === 'remove');
+  const add = diffResult.filter((item) => item.op === "add");
+  const remove = diffResult.filter((item) => item.op === "remove");
 
   const cloneTarget = cloneDeep(target);
   const extra = {};
@@ -23,6 +23,6 @@ export const diff = (entry: LocaleObj, target: LocaleObj) => {
     add,
     entry: extra,
     remove,
-    target: cloneTarget,
+    target: cloneTarget
   };
 };

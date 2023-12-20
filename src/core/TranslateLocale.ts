@@ -1,18 +1,18 @@
 import consola from "consola";
 import { ChatPromptTemplate } from "langchain/prompts";
 import { ChatOpenAI } from "langchain/chat_models/openai";
-import { promptJsonTranslate, promptStringTranslate } from "@/prompts/translate";
+import { promptJsonTranslate, promptStringTranslate } from "../prompts/translate";
 
-import type { LocaleObj } from "@/types";
-import type { I18nConfig } from "@/types/config";
+import type { LocaleObj } from "../types";
+import type { GenjiI18nConfig } from "../types/config";
 
 export class TranslateLocale {
   private model: ChatOpenAI;
-  private config: I18nConfig;
+  private config: GenjiI18nConfig;
   private isJsonMode: boolean;
   promptJson: ChatPromptTemplate<{ from: string; json: string; to: string }>;
   promptString: ChatPromptTemplate<{ from: string; text: string; to: string }>;
-  constructor(config: I18nConfig, openAIApiKey: string, openAIProxyUrl?: string) {
+  constructor(config: GenjiI18nConfig, openAIApiKey: string, openAIProxyUrl?: string) {
     this.config = config;
     this.model = new ChatOpenAI({
       configuration: {

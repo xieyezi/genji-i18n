@@ -1,6 +1,6 @@
 import { LanguageModel } from "./models";
 
-export interface I18nConfig {
+export interface GenjiI18nConfig {
   /**
    * @description ChatGPT model to use
    */
@@ -60,16 +60,13 @@ export interface I18nConfig {
   ) => string;
 }
 
-export type GenjiI18nConfig = I18nConfig;
-
-export enum MarkdownModeType {
-  MDAST = "mdast",
-  STRING = "string"
+export interface OptionType {
+  config?: string;
+  c?: string;
+  [key: string]: any;
 }
 
 export interface EnvConfig {
   openAIKey: string;
   openAIBaseUrl: string;
 }
-
-export type EnvConfigKeys = keyof EnvConfig;

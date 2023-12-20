@@ -8,30 +8,32 @@
     "openai",
     "gpt",
     "languages",
+    "markdown",
     "xieyezi"
   ],
-  "homepage": "https://github.com/xieyezi/genji-i18n",
-  "bugs": {
-    "url": "https://github.com/xieyezi/genji-i18n/issues/new"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/xieyezi/genji-i18n.git"
-  },
   "license": "MIT",
   "author": "xieyezi",
   "bin": {
-    "genji-i18n": "dist/cli.cjs"
+    "genji-i18n": "dist/cli.js"
+  },
+  "scripts": {
+    "start": "node ./dist/cli.js translate -c e:/myself/genji-i18n/examples/genji.config.ts",
+    "build": "npm run type-check && rimraf dist && pkgroll --minify -p tsconfig.prod.json --env.NODE_ENV=production",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "type-check": "tsc --noEmit"
   },
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs",
-      "types": "./dist/index.d.ts"
+    "require": {
+      "types": "./dist/index.d.cts",
+      "default": "./dist/index.cjs"
+    },
+    "import": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
     }
   },
   "typesVersions": {
@@ -43,21 +45,21 @@
     }
   },
   "sideEffects": false,
+  "homepage": "https://github.com/xieyezi/genji-i18n",
+  "bugs": {
+    "url": "https://github.com/xieyezi/genji-i18n/issues/new"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xieyezi/genji-i18n.git"
+  },
   "files": [
     "dist"
   ],
-  "scripts": {
-    "start": "node ./dist/cli.cjs translate",
-    "build:unbuild": "rimraf dist && unbuild",
-    "build:pkgroll": "pkgroll --minify -p tsconfig.prod.json --env.NODE_ENV=production",
-    "type-check": "tsc --noEmit"
-  },
   "dependencies": {
     "cac": "^6.7.14",
     "chalk": "^5",
     "consola": "^3",
-    "dotenv": "^16",
-    "fast-deep-equal": "^3",
     "glob": "^10",
     "gpt-tokenizer": "^2",
     "json-stable-stringify": "^1",
@@ -66,12 +68,10 @@
     "lodash-es": "^4",
     "minimist": "^1.2.8",
     "p-map": "^7",
-    "pkgroll": "^2",
     "remark-frontmatter": "^4",
     "remark-gfm": "^3",
     "remark-parse": "^10",
     "remark-stringify": "^10",
-    "unbuild": "^2.0.0",
     "unconfig": "^0.3.11",
     "unified": "^11",
     "unist-util-visit": "^5"
@@ -80,7 +80,12 @@
     "@types/json-stable-stringify": "^1",
     "@types/lodash-es": "^4.17.12",
     "@types/minimist": "^1.2.5",
-    "@types/node": "^20.10.5",
+    "@xieyezi/eslint-config-typescript": "^2.0.1",
+    "@xieyezi/prettier-config-preset": "^2.0.1",
+    "eslint": "^8.56.0",
+    "pkgroll": "^2",
+    "prettier": "^2.8.8",
+    "rimraf": "^5.0.5",
     "typescript": "^5.3.3"
   },
   "engines": {

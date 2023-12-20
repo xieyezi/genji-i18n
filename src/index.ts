@@ -1,7 +1,7 @@
-import { I18nConfig } from "./types/config";
+import type { GenjiI18nConfig } from "./types/config";
 
-export type Config = I18nConfig;
-
-export const defineConfig = (config: Partial<Config>): Config => {
-  return config as Config;
+export { LanguageModel } from "./types/models";
+export type { GenjiI18nConfig };
+export const defineConfig = (config: Partial<GenjiI18nConfig>): GenjiI18nConfig => {
+  return config as GenjiI18nConfig;
 };

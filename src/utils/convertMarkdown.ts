@@ -1,12 +1,12 @@
-import remarkFrontmatter from "remark-frontmatter";
+import { unified } from "unified";
+import { visit } from "unist-util-visit";
 import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import remarkStringify from "remark-stringify";
-import { unified } from "unified";
-import { visit } from "unist-util-visit";
+import remarkFrontmatter from "remark-frontmatter";
 
-import { LocaleObj } from "@/types";
-import { checkMdString } from "@/utils/checkMdString";
+import { checkMdString } from "../utils/checkMdString";
+import type { LocaleObj } from "../types";
 
 // @ts-ignore
 export const convertMarkdownToMdast = async (md: string): any => {
@@ -35,7 +35,10 @@ export const pickMdastObj = (entry: LocaleObj) => {
   return obj;
 };
 
-export const mergeMdastObj = ({ mdast, entry, target }: { entry: LocaleObj; mdast: any; target: LocaleObj }, check?: string[]) => {
+export const mergeMdastObj = (
+  { mdast, entry, target }: { entry: LocaleObj; mdast: any; target: LocaleObj },
+  check?: string[]
+) => {
   const merged = { ...entry, ...target };
 
   let index = 0;

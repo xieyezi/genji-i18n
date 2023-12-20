@@ -1,8 +1,8 @@
 import { loadConfig } from "unconfig";
-import type { GenjiI18nConfig } from "@/types/config";
+import type { GenjiI18nConfig } from "../types/config";
 
 async function loadI18nConfig(path: string) {
-  let configDefault = {};
+  const configDefault = {};
   const { config } = await loadConfig<GenjiI18nConfig>({
     cwd: path,
     sources: [

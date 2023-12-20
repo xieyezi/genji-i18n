@@ -1,17 +1,19 @@
 import pMap from "p-map";
 import { merge } from "lodash-es";
 
+import { TranslateLocale } from "./TranslateLocale";
+import { TranslateMarkdown } from "./TranslateMarkdown";
+
 import { calcToken } from "../utils/calcToken";
+import { MarkdownMode } from "../utils/constant";
 import { splitJsonToChunks } from "../utils/splitJsonToChunks";
 import { mergeJsonFromChunks } from "../utils/mergeJsonFromChunks";
-import { TranslateLocale } from "./TranslateLocale";
-import { TranslateMarkdown } from "../core/TranslateMarkdown";
 
 import type { LocaleObj } from "../types";
-import { type I18nConfig, MarkdownModeType } from "../types/config";
+import { type GenjiI18nConfig } from "../types/config";
 
 export interface I18nOptions {
-  config: I18nConfig;
+  config: GenjiI18nConfig;
   openAIApiKey: string;
   openAIProxyUrl: string;
 }
@@ -33,7 +35,7 @@ export interface I18nTranslateOptions {
 
 export interface I18nMarkdownTranslateOptions extends Pick<I18nTranslateOptions, "from" | "to" | "onProgress"> {
   md: string;
-  mode: MarkdownModeType;
+  mode: MarkdownMode;
 }
 
 export interface I18nWriteOptions extends I18nTranslateOptions {
@@ -45,7 +47,7 @@ export interface I18nMarkdownWriteOptions extends I18nMarkdownTranslateOptions {
 }
 
 export class I18n {
-  private config: I18nConfig;
+  private config: GenjiI18nConfig;
   private step: number = 0;
   private maxStep: number = 1;
   private translateLocaleService: TranslateLocale;
@@ -63,7 +65,9 @@ export class I18n {
       }
     | undefined
   > {
-    return options.mode === MarkdownModeType.STRING ? this.translateMarkdownByString(options) : this.translateMarkdownByMdast(options);
+    return options.mode === MarkdownMode.STRING
+      ? this.translateMarkdownByString(options)
+      : this.translateMarkdownByMdast(options);
   }
 
   async translateMarkdownByString({

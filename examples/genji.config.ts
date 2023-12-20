@@ -1,6 +1,7 @@
-import { defineConfig } from "../src";
+import { defineConfig, LanguageModel } from "../src";
 
 export default defineConfig({
+  model: LanguageModel.GPT3_5,
   entry: ["./index.zh-CN.md"],
   entryLocale: "zh-CN",
   entrySuffix: ".zh-CN.md",

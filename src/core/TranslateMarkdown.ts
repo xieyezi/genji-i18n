@@ -1,19 +1,26 @@
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 
-import { LocaleObj } from "@/types";
-import { I18nConfig } from "@/types/config";
-import { calcToken } from "@/utils/calcToken";
-import { convertMarkdownToMdast, convertMdastToMarkdown, convertMdastToMdastObj, mergeMdastObj, pickMdastObj } from "@/utils/convertMarkdown";
-import { getSplitToken } from "@/utils/splitJsonToChunks";
+import { calcToken } from "../utils/calcToken";
+import { getSplitToken } from "../utils/splitJsonToChunks";
+import {
+  convertMarkdownToMdast,
+  convertMdastToMarkdown,
+  convertMdastToMdastObj,
+  mergeMdastObj,
+  pickMdastObj
+} from "../utils/convertMarkdown";
+
+import type { LocaleObj } from "../types";
+import type { GenjiI18nConfig } from "../types/config";
 
 export class TranslateMarkdown {
   mdast: any;
   entry: LocaleObj = {};
-  config: I18nConfig;
+  config: GenjiI18nConfig;
   check: string[];
   private definition?: string;
 
-  constructor(config: I18nConfig) {
+  constructor(config: GenjiI18nConfig) {
     this.config = config;
     this.check = ["text", "yaml"].filter(Boolean) as string[];
   }
