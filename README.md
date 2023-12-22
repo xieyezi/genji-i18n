@@ -8,7 +8,7 @@
 
 genji i18n is a tool for automatically translating markdown documents based on ChatGPT.
 
-[简体中文](./README0.zh-CN.md) ・ English ・ [にほんご](./README.ja-JP.md) ·
+[简体中文](./README.zh-CN.md) ・ English ・ [にほんご](./README.ja-JP.md) ·
 
 </div>
 
