@@ -26,26 +26,19 @@ export interface onProgressProps {
   step: number;
 }
 export interface I18nTranslateOptions {
-  filename?: string;
+  originFilename?: string;
+  targetFilename?: string;
   entry: LocaleObj;
-  from?: string;
-  onProgress?: (props: onProgressProps) => void;
+  fromLocale?: string;
+  toLocale: string;
   target: LocaleObj;
-  to: string;
+  onProgress?: (props: onProgressProps) => void;
 }
 
 export interface I18nMarkdownTranslateOptions
-  extends Pick<I18nTranslateOptions, "filename" | "from" | "to" | "onProgress"> {
+  extends Pick<I18nTranslateOptions, "targetFilename" | "fromLocale" | "toLocale" | "onProgress"> {
   md: string;
   mode: MarkdownMode;
-}
-
-export interface I18nWriteOptions extends I18nTranslateOptions {
-  filename: string;
-}
-
-export interface I18nMarkdownWriteOptions extends I18nMarkdownTranslateOptions {
-  filename: string;
 }
 
 export type TranslateResult =
@@ -82,14 +75,14 @@ export class I18n {
 
   async translateMarkdownByString({
     md,
-    to,
+    toLocale,
     onProgress,
-    from
+    fromLocale
   }: I18nMarkdownTranslateOptions): Promise<TranslateMarkdownResult> {
     const prompt = await this.translateLocaleService.promptString.formatMessages({
-      from,
-      text: "",
-      to
+      from: fromLocale,
+      to: toLocale,
+      text: ""
     });
 
     const splitString = await this.translateMarkdownService.genSplitMarkdown(md, JSON.stringify(prompt));
@@ -120,9 +113,9 @@ export class I18n {
           step: this.step
         });
         const result = await this.translateLocaleService.runByString({
-          from,
-          text,
-          to
+          from: fromLocale,
+          to: toLocale,
+          text
         });
         if (this.step < this.maxStep) this.step++;
         return result;
@@ -167,11 +160,11 @@ export class I18n {
     };
   }
 
-  async translate({ entry, target, to, onProgress, from }: I18nTranslateOptions): Promise<TranslateResult> {
+  async translate({ entry, target, toLocale, onProgress, fromLocale }: I18nTranslateOptions): Promise<TranslateResult> {
     const prompt = await this.translateLocaleService.promptJson.formatMessages({
-      from,
-      json: {},
-      to
+      from: fromLocale,
+      to: toLocale,
+      json: {}
     });
     const splitJson = splitJsonToChunks(this.config, entry, target, JSON.stringify(prompt));
 
@@ -201,9 +194,9 @@ export class I18n {
           step: this.step
         });
         const result = await this.translateLocaleService.runByJson({
-          from,
-          json,
-          to
+          from: fromLocale,
+          to: toLocale,
+          json
         });
         if (this.step < this.maxStep) this.step++;
         return result;

@@ -61,9 +61,10 @@ export interface GenjiI18nConfig {
 }
 
 export interface MarkdownQuery {
-  filename: string;
-  from: string;
-  to: string;
+  originFilename: string;
+  targetFilename: string;
+  fromLocale: string;
+  toLocale: string;
   md: string;
   mode: MarkdownMode;
   onProgress?: (rest: any) => void;

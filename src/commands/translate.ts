@@ -1,9 +1,10 @@
+import ora from "ora";
 import chalk from "chalk";
 import { globSync } from "glob";
 import { consola } from "consola";
 import { resolve } from "path";
 
-import { I18n } from "../core/I18n";
+import { I18n, type onProgressProps } from "../core/I18n";
 import { getCwdPath } from "../utils/getCwdPath";
 import { MarkdownMode } from "../utils/constant";
 import { isFileExist } from "../utils/isFileExist";
@@ -81,24 +82,31 @@ async function runQuery(i18n: I18n, config: GenjiI18nConfig, querys: MarkdownQue
   );
   let totalTokenUsage = 0;
   for (const item of querys) {
-    consola.start(`genji start translate ${chalk.bold.green(item.from)} to ${chalk.bold.cyan(item.to)} locales...`);
+    const spinner = ora({
+      text: `genji is translating ${chalk.bold.green(item.originFilename)} to ${chalk.bold.cyan(item.toLocale)}...`,
+      color: "green"
+    }).start();
     const data = await i18n.translateMarkdown({
       ...item,
-      onProgress: (rest) => {
-        //console.log("process:", rest);
+      onProgress: (rest: onProgressProps) => {
+        if (rest.progress === 100) {
+          spinner.stop();
+        }
       }
     });
 
-    const outputPath = item.filename;
+    const outputPath = item.targetFilename;
     if (data?.result && Object.keys(data.result).length > 0) {
-      writeMarkdown(item.filename, data.result);
+      writeMarkdown(item.targetFilename, data.result);
       totalTokenUsage += data.tokenUsage;
-      consola.success(`genji tarnlate to ${chalk.bold.cyan(item.to)} success.`);
+      consola.success(
+        `genji tarnlate ${chalk.bold.green(item.originFilename)} to ${chalk.bold.cyan(item.toLocale)} success.`
+      );
     } else {
       consola.warn("no translation result was found:", chalk.yellow(outputPath));
     }
   }
-  if (totalTokenUsage > 0) consola.info("total token usage:", chalk.cyan(totalTokenUsage));
+  if (totalTokenUsage > 0) consola.info("total token usage:", chalk.yellow(totalTokenUsage));
 }
 
 function genMarkdownFilesQuery(root: string, config: GenjiI18nConfig, files: string[]) {
@@ -115,10 +123,11 @@ function genMarkdownFilesQuery(root: string, config: GenjiI18nConfig, files: str
         if (isFileExist(targetFilename)) continue;
         querys.push({
           md,
-          filename: targetFilename,
-          from: config.entryLocale,
-          mode: MarkdownMode.STRING,
-          to: locale
+          targetFilename,
+          originFilename: filePath,
+          fromLocale: config.entryLocale,
+          toLocale: locale,
+          mode: MarkdownMode.STRING
         });
       }
     } catch {

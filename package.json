@@ -67,6 +67,7 @@
     "langchain": "latest",
     "lodash-es": "^4",
     "minimist": "^1.2.8",
+    "ora": "^7.0.1",
     "p-map": "^7",
     "remark-frontmatter": "^4",
     "remark-gfm": "^3",
