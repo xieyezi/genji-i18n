@@ -8,7 +8,7 @@
 
 genji i18n 是一款使用 基于 ChatGPT 的自动翻译 markdown 文档的工具。
 
-[English](./README.md) ・ 简体中文 ・ [更新日志](./CHANGELOG.md) ·
+[English](./README.md) ・ 简体中文 ・ [にほんご](./README.ja-JP.md) ·
 
 </div>
 
