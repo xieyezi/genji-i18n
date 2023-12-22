@@ -1,47 +1,131 @@
-## 统一稳定
+<a name="readme-top"></a>
 
-除以下所提到的种种原则，更应该时刻注意不同页面间的统一性和延续性，在不同的页面尽量使用一致的控件和交互方式。
+<div align="center">
 
-统一的页面体验和有延续性的界面元素都将帮助用最少的学习成本达成使用目标，减轻页面跳动所造成的不适感。小程序可根据需要使用微信提供的标准控件，以达到统一稳定的目的。
+<img height="120" src="./genji.svg">
 
-## 重点突出
+<h1>genji i18n</h1>
 
-每个页面都应有明确的重点，以便于用户每进入一个新页面的时候都能快速地理解页面内容。在确定了重点的前提下，应尽量避免页面上出现其它与用户的决策和操作无关的干扰因素。
+genji i18n 是一款使用 基于 ChatGPT 的自动翻译 markdown 文档的工具。
 
-## 流程明确
+[English](./README.md) ・ 简体中文 ・ [更新日志](./CHANGELOG.md) ·
 
-为了让用户顺畅地使用页面，在用户进行某一个操作流程时，应避免出现用户目标流程之外的内容而打断用户。
+</div>
 
-## 清晰明确
+## 特性
 
-一旦用户进入我们的页面，我们就有责任和义务清晰明确地告知用户身在何处、又可以往何处去，确保用户在页面中游刃有余地穿梭而不迷路，这样才能为用户提供安全且愉悦的使用体验。
+- [x] 利用 ChatGPT 自动翻译 markdown 文档
+- [x] 支持大型文件自动分割，不必担心 ChatGPT token 限制
+- [x] 支持自定义 OpenAI 模型、API 代理、temperature
 
-## 导航明确，来去自如
+## 安装
 
-需要告诉用户，当前在哪，可以去哪，如何回去等问题。建议所有的次级页面左上角提供返回上一级页面操作。此外，使 iOS 用户通过界面边缘向右滑动操作，返回上一级页面。
+要安装 genji i18n，请运行以下命令：
 
-## 减少等待，反馈及时
+```bash
+pnpm add @xieyezi/genji-i18n -D
+```
 
-除常规刷新以外，当不可避免的出现了加载和等待的时候，也需要予以及时的反馈以舒缓用户等待的不良情绪。
+建议安装到全局环境中:
 
-## 加载反馈注意事项
+```bash
+npm install -g @xieyezi/genji-i18n
+```
 
-若载入时间会较长,应提供取消操作,并使用进度条显示载入的进度。
-载入过程中,应保持动画效果 ; 无动画效果的加载很容易让人产生该界面已经卡死的错觉。
-不要在同一个页面同时使用超过 1 个加载动画。
+> 请确保环境中 `Node.js` 版本 **>= 18**
 
-## 异常可控，有路可退
+## 使用
 
-要杜绝异常状态下，用户莫名其妙又无处可去，停滞在某一个页面的情况。模态对话框和结果页面都可作为异常状态的提醒方式。除此之外，在表单页面中尤其是表单项较多的页面中，还应明确指出出错项目，以便用户修改。
+```bash
+genji-i18n translate -c path/to/genji.config.ts
+```
 
-## 便捷优雅
+## 配置
 
-但是手指操作的准确性不如键盘鼠标精确。为了适应这个变化，需要开发者在设计过程中充分利用手机特性，让用户便捷优雅的操控界面。
+在你文档的根目录下面，创建一个 `genji.config.ts`。`genji-i18n` 提供了 `defineConfig` 函数。
+下面是一个例子:
 
-## 减少输入
+```ts
+// genji.config.ts
+import { defineConfig, LanguageModel } from "@xieyezi/genji-i18n";
 
-区域小且密集，输入困难的同时还易引起输入错误，因此在设计页面时应尽量减少用户输入，利用现有接口或其他一些易于操作的选择控件来改善用户输入。
+export default defineConfig({
+  model: LanguageModel.GPT3_5,
+  entryLocale: "zh-CN",
+  entrySuffix: ".zh-CN.md",
+  outputLocales: ["en-US", "ja-JP"],
+  entry: ["./index.zh-CN.md"],
+  outputCustom: (locale, { getDefaultSuffix }) => {
+    if (locale === "en-US") return ".md";
+    return getDefaultSuffix(locale);
+  }
+});
+```
 
-## 避免误操作设计
+### `genji.confit.ts` 完整类型
 
-后续还将完善 sketch 设计控件库。这些控件都已充分考虑了移动端页面的特点，保证其在移动端页面上的可用性和操作性能；充分利用这些资源为用户提供更加快捷的服务。
+```ts
+export interface GenjiI18nConfig {
+  /**
+   * @description 要使用的 ChatGPT 模型
+   */
+  model?: LanguageModel;
+  /**
+   * @description 并发的待处理的任务数量
+   */
+  concurrency?: number;
+  /**
+   * @description 提供一些上下文以获得更准确的翻译
+   */
+  reference?: string;
+  /**
+   * @description 按标记拆分
+   */
+  splitToken?: number;
+  /**
+   * @description 要使用的采样温度
+   */
+  temperature?: number;
+  /**
+   * @description 入口文件或文件夹，支持 glob模式
+   */
+  entry: string[];
+  /**
+   * @description 将用作翻译参考的语言
+   */
+  entryLocale: string;
+  /**
+   * @description 将用作翻译参考的语言 Markdown 后缀
+   */
+  entrySuffix?: string;
+  /**
+   * @description 将被忽略的 markdown，支持 glob
+   */
+  exclude?: string[];
+  /**
+   * @description 需要进行翻译的所有语言
+   */
+  outputLocales: string[];
+  /**
+   * @description 是否使用 json 模式
+   */
+  experimental?: {
+    jsonMode?: boolean;
+  };
+  /**
+   * @description 自定义生成函数
+   */
+  outputCustom?: (
+    locale: string,
+    config: {
+      fileContent: string;
+      filePath: string;
+      getDefaultSuffix: (locale: string) => string;
+    }
+  ) => string;
+}
+```
+
+## 例子
+
+可参考 Examples 文件夹查看详细使用示例。
