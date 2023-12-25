@@ -49,6 +49,10 @@ async function translateMarkdown(options: OptionType) {
     return;
   }
 
+  //console.log("root:", root);
+  //console.log("include:", matchInputPattern(entry, ".md"));
+  //console.log("exclude:", matchInputPattern(exclude, ".md"));
+
   const markdownFiles = globSync(matchInputPattern(entry, ".md"), {
     cwd: root,
     ignore: matchInputPattern(exclude, ".md"),
