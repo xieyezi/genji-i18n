@@ -6,7 +6,7 @@
 
 <h1>genji i18n</h1>
 
-genji i18n is a tool for automatically translating markdown documents based on ChatGPT.
+genji i18n is a tool for automatically translating markdown documents based on openAI.
 
 [简体中文](./README.zh-CN.md) ・ English ・ [にほんご](./README.ja-JP.md) ·
 
@@ -14,8 +14,8 @@ genji i18n is a tool for automatically translating markdown documents based on C
 
 ## Features
 
-- [x] Automatically translate markdown documents using ChatGPT
-- [x] Support automatic segmentation of large files, no need to worry about ChatGPT token limits
+- [x] Automatically translate markdown documents using openAI
+- [x] Support automatic segmentation of large files, no need to worry about openAI token limits
 - [x] Support custom OpenAI models, API proxies, and temperature
 
 ## Installation

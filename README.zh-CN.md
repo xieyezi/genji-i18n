@@ -6,7 +6,7 @@
 
 <h1>genji i18n</h1>
 
-genji i18n 是一款使用 基于 ChatGPT 的自动翻译 markdown 文档的工具。
+genji i18n 是一款使用 基于 openAI 的自动翻译 markdown 文档的工具。
 
 [English](./README.md) ・ 简体中文 ・ [にほんご](./README.ja-JP.md) ·
 
@@ -14,8 +14,8 @@ genji i18n 是一款使用 基于 ChatGPT 的自动翻译 markdown 文档的工�
 
 ## 特性
 
-- [x] 利用 ChatGPT 自动翻译 markdown 文档
-- [x] 支持大型文件自动分割，不必担心 ChatGPT token 限制
+- [x] 利用 openAI 自动翻译 markdown 文档
+- [x] 支持大型文件自动分割，不必担心 openAI token 限制
 - [x] 支持自定义 OpenAI 模型、API 代理、temperature
 
 ## 安装
