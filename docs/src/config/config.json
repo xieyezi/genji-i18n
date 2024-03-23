@@ -1,0 +1,42 @@
+{
+  "site": {
+    "title": "Genji-i18n",
+    "base_url": "",
+    "base_path": "/",
+    "trailing_slash": false,
+    "favicon": "/images/favicon.png",
+    "logo": "/images/logo.png",
+    "logo_darkmode": "/images/logo-darkmode.png",
+    "logo_width": "150",
+    "logo_height": "30",
+    "logo_text": "Genji-i18n"
+  },
+
+  "settings": {
+    "search": false,
+    "sticky_header": false,
+    "theme_switcher": true,
+    "default_theme": "system",
+    "pagination": 2,
+    "summary_length": 200,
+    "blog_folder": "blog"
+  },
+
+  "navigation_button": {
+    "enable": true,
+    "label": "Get Started",
+    "link": "https://github.com/xieyezi/genji-i18n"
+  },
+
+  "disqus": {
+    "enable": true,
+    "shortname": "themefisher-template",
+    "settings": {}
+  },
+
+  "metadata": {
+    "meta_author": "xieyezi",
+    "meta_image": "/images/og-image.png",
+    "meta_description": "Genji-i18n is a simple, elegant, and modern Jekyll theme that focuses on design, performance, and simplicity. It is perfect for personal blogs, portfolio sites, and small businesses. It is fully responsive and optimized for speed on all devices."
+  }
+}
