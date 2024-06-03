@@ -14,7 +14,8 @@ export enum LanguageModel {
   GPT4 = "gpt-4",
   GPT4_32K = "gpt-4-32k",
   GPT4_PREVIEW = "gpt-4-1106-preview",
-  GPT4_VISION_PREVIEW = "gpt-4-vision-preview"
+  GPT4_VISION_PREVIEW = "gpt-4-vision-preview",
+  GPT4_O = "gpt-4o"
 }
 
 export const ModelTokens: Record<LanguageModel, number> = {
@@ -24,5 +25,6 @@ export const ModelTokens: Record<LanguageModel, number> = {
   [LanguageModel.GPT4]: 8196,
   [LanguageModel.GPT4_PREVIEW]: 128_000,
   [LanguageModel.GPT4_VISION_PREVIEW]: 128_000,
-  [LanguageModel.GPT4_32K]: 32_768
+  [LanguageModel.GPT4_32K]: 32_768,
+  [LanguageModel.GPT4_O]: 128_000
 };

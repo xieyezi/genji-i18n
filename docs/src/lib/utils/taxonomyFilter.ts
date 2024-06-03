@@ -1,4 +1,4 @@
-import { slugify } from "@/lib/utils/textConverter";
+import { slugify } from "./textConverter";
 
 const taxonomyFilter = (posts: any[], name: string, key: string) =>
   posts.filter((post) =>
