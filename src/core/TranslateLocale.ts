@@ -37,9 +37,9 @@ export class TranslateLocale {
         to
       });
 
-      const res = await this.model.call(formattedChatPrompt);
+      const res = await this.model.invoke(formattedChatPrompt);
 
-      const result = res["text"];
+      const result = res["content"];
 
       if (!result) this.handleError();
       return result;
@@ -55,7 +55,7 @@ export class TranslateLocale {
         to
       });
 
-      const res = await this.model.call(
+      const res = await this.model.invoke(
         formattedChatPrompt,
         this.isJsonMode
           ? {
