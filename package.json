@@ -1,6 +1,6 @@
 {
   "name": "@xieyezi/genji-i18n",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "translate Markdown into specified multiple languages automatically by openai.",
   "keywords": [
     "ai",
