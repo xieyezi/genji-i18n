@@ -17,7 +17,7 @@
     "genji-i18n": "dist/cli.js"
   },
   "scripts": {
-    "start": "node ./dist/cli.js translate -c e:/myself/genji-i18n/examples/genji.config.ts",
+    "start": "node ./dist/cli.js translate -c ./examples/genji.config.ts",
     "build": "npm run type-check && rimraf dist && pkgroll --minify -p tsconfig.prod.json --env.NODE_ENV=production",
     "format": "prettier --write \"src/**/*.ts\"",
     "type-check": "tsc --noEmit"
@@ -63,6 +63,7 @@
     "cac": "^6.7.14",
     "chalk": "^5",
     "consola": "^3",
+    "dotenv": "^16.4.5",
     "glob": "^10",
     "gpt-tokenizer": "^2",
     "json-stable-stringify": "^1",

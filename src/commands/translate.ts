@@ -32,7 +32,7 @@ async function translateMarkdown(options: OptionType) {
     return;
   }
 
-  const { openAIBaseUrl, openAIKey } = getOpenAIKeyAndURL();
+  const { openAIBaseUrl, openAIKey } = getOpenAIKeyAndURL(configPath);
 
   const i18n = new I18n({
     config,
