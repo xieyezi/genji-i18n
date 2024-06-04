@@ -1,6 +1,6 @@
 {
   "name": "@xieyezi/genji-i18n",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "translate Markdown into specified multiple languages automatically by openai.",
   "keywords": [
     "ai",
@@ -57,6 +57,9 @@
     "dist"
   ],
   "dependencies": {
+    "@langchain/core": "^0.2.5",
+    "@langchain/openai": "^0.1.1",
+    "@langchain/textsplitters": "^0.0.2",
     "cac": "^6.7.14",
     "chalk": "^5",
     "consola": "^3",
@@ -64,7 +67,6 @@
     "gpt-tokenizer": "^2",
     "json-stable-stringify": "^1",
     "just-diff": "^6",
-    "langchain": "latest",
     "lodash-es": "^4",
     "minimist": "^1.2.8",
     "ora": "^7.0.1",
@@ -84,7 +86,7 @@
     "@xieyezi/eslint-config-typescript": "^2.0.1",
     "@xieyezi/prettier-config-preset": "^2.0.1",
     "eslint": "^8.56.0",
-    "pkgroll": "^2",
+    "pkgroll": "^2.1.1",
     "prettier": "^2.8.8",
     "rimraf": "^5.0.5",
     "typescript": "^5.3.3"

@@ -1,4 +1,4 @@
-import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
+import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 
 import { calcToken } from "../utils/calcToken";
 import { getSplitToken } from "../utils/splitJsonToChunks";
